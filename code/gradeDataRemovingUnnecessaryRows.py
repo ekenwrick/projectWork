@@ -11,7 +11,7 @@ del gradeDataCleaned["Exam number"]
 del gradeDataCleaned["Qualification"]
 del gradeDataCleaned["Result set"]
 
-# Remove all rows where grade is noted as 'Y'
+# Remove all rows where grade is noted as anything other than an A-level result 
 wantedRowsForGrade = gradeDataCleaned.loc[gradeDataCleaned['Grade'] != 'Y']
 wantedRowsForGrade = wantedRowsForGrade.loc[wantedRowsForGrade['Grade'] != 'N']
 wantedRowsForGrade = wantedRowsForGrade[pd.notnull(wantedRowsForGrade['Level'])]

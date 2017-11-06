@@ -9,11 +9,7 @@ basicData = pd.read_excel("data/studentData.xlsx")
 del basicData["Boarder Status at DOL"]
 del basicData["Leaving date"]
 
-# Add columns for future data addition
-basicData["A2 Result 1"] = np.nan
-basicData["A2 Result 2"] = np.nan
-basicData["A2 Result 3"] = np.nan
-basicData["A2 Result 4"] = np.nan
+
 
 # Create pandas excel writer and write to excel
 writer = pd.ExcelWriter('basicDataSetUp.xlsx', engine='xlsxwriter')
