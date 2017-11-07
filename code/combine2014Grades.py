@@ -6,4 +6,4 @@ import numpy as np
 basicData = pd.read_excel("basicDataWithGrades.xlsx")
 gradeData = pd.read_excel("data/2014_A2_results_pupil.xlsx")
 
-del gradeData[0:2]
+del gradeData[0:4]
