@@ -67,6 +67,7 @@ for i in range(0,gradeData.shape[0]):
         subjectList.append(gradeData.iloc[i]['Subject'])
         gradeList.append(gradeData.iloc[i]['Grade'])
 
+
 # Create pandas excel writer and write to excel
 writer = pd.ExcelWriter('basicDataWithGrades.xlsx', engine='xlsxwriter')
 basicData.to_excel(writer, sheet_name = 'Sheet1')

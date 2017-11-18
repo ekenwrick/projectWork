@@ -14,7 +14,7 @@ y_pos = np.arange(len(exams))
 numResultsPerExam = data['Exam Total'].tolist()
 numResultsPerExam = numResultsPerExam[0:-1]
 
-plt.barh(y_pos, numResultsPerExam, align='center', alpha=10)
+plt.barh(y_pos, numResultsPerExam, align='center', alpha=0.5)
 plt.yticks(y_pos, exams)
 plt.xlabel('Number Of A-Level Results')
 plt.title('Number Of A-level Result For Each Exam')
