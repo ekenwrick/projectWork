@@ -17,17 +17,14 @@ uniqueResults = results.stack().unique()
 totalExams = examsTaken.stack().value_counts()
 totalResults = results.stack().value_counts()
 
-
-
-print(uniqueExams[1])
-print(uniqueResults)
-
+# Set up and create a dataframe with the grades and exams
 columns = uniqueResults
 index = uniqueExams
 
 examsDataFrame = pd.DataFrame(index=index, columns=columns)
 examsDataFrame = examsDataFrame.fillna(0)
 
+# Loop through each A-Level entry and increment respective values
 for i in range(0,uniqueExams.shape[0]):
     for j in range(0,examsTaken.shape[0]):
         for k in range(0,5):
@@ -62,4 +59,13 @@ for i in range(0,uniqueExams.shape[0]):
                     currentCount = int(examsDataFrame.loc[examCheck][examResult])
                     examsDataFrame.set_value(examCheck, examResult, (currentCount + 1))
 
+examsDataFrame = examsDataFrame.ix[:, ['A', 'B', 'C', 'D', 'E', 'U']]
+examsDataFrame['Exam Total'] = examsDataFrame.sum(axis=1)
+examsDataFrame.loc['Grade Total']= examsDataFrame.sum()
 print(examsDataFrame)
+
+
+# Create pandas excel writer and write to excel
+writer = pd.ExcelWriter('examsAndNumberOfGrades.xlsx', engine='xlsxwriter')
+examsDataFrame.to_excel(writer, sheet_name = 'Sheet1')
+writer.save()
