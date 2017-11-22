@@ -10,19 +10,19 @@ for i in range(0,data.shape[0]):
     num = 0
     for j in range(5):
         if data.iloc[i]['A2 Result ' + str(j+1)] == 'A':
-            gradeScore += 120
+            gradeScore += 48
             num += 1
         elif data.iloc[i]['A2 Result ' + str(j+1)] == 'B':
-            gradeScore += 100
+            gradeScore += 40
             num += 1
         elif data.iloc[i]['A2 Result ' + str(j+1)] == 'C':
-            gradeScore += 80
+            gradeScore += 32
             num += 1
         elif data.iloc[i]['A2 Result ' + str(j+1)] == 'D':
-            gradeScore += 60
+            gradeScore += 24
             num += 1
         elif data.iloc[i]['A2 Result ' + str(j+1)] == 'E':
-            gradeScore += 40
+            gradeScore += 16
             num += 1
 
     gradeScore = gradeScore / num
