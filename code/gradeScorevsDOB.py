@@ -2,9 +2,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import ttest_ind
 
 # Import data
-data = pd.read_excel("basicDataWithGrades-A.xlsx")
+data = pd.read_excel("basicDataWithGradesAndBehaviour-A.xlsx")
 
 data = data.loc[:, ['DOB', 'Grade Score']]
 data['DOB'].apply(str)
@@ -33,6 +34,8 @@ novScore = 0
 novNum = 0
 decScore = 0
 decNum = 0
+
+
 
 
 for i in range(0, data.shape[0]):
@@ -99,6 +102,15 @@ sepScore = sepScore / sepNum
 octScore = octScore / octNum
 novScore = novScore / novNum
 decScore = decScore / decNum
+
+
+# Calculate t test by splitting groups into groups of 6 months
+tTest = ttest_ind([sepScore, octScore, novScore, decScore, janScore, febScore],[marScore, aprScore, mayScore, junScore, julScore, augScore])
+
+print(tTest)
+
+
+
 
 
 xticks=['September', 'October', 'November', 'December', 'January','February','March','April', 'May', 'June', 'July', 'August']

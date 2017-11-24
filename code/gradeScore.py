@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Import data
-data = pd.read_excel("basicDataWithGrades-A.xlsx")
+data = pd.read_excel("basicDataWithGradesAndBehaviour-A.xlsx")
 
 for i in range(0,data.shape[0]):
     gradeScore = 0
@@ -30,6 +30,6 @@ for i in range(0,data.shape[0]):
     data.set_value(i,'Grade Score', gradeScore)
 
 # Create pandas excel writer and write to excel
-writer = pd.ExcelWriter('basicDataWithGrades-A.xlsx', engine='xlsxwriter')
+writer = pd.ExcelWriter('basicDataWithGradesAndBehaviour-A.xlsx', engine='xlsxwriter')
 data.to_excel(writer, sheet_name = 'Sheet1')
 writer.save()
