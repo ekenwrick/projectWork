@@ -9,7 +9,7 @@ for i in range(0,data.shape[0]):
     gradeScore = 0
     num = 0
     for j in range(5):
-        if data.iloc[i]['A2 Result ' + str(j+1)] == 'A':
+        if data.iloc[i]['A2 Result ' + str(j+1)] == 'A' or data.iloc[i]['A2 Result ' + str(j+1)] == 'A*':
             gradeScore += 48
             num += 1
         elif data.iloc[i]['A2 Result ' + str(j+1)] == 'B':
