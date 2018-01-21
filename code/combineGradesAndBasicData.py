@@ -26,13 +26,6 @@ for i in range(0,gradeData.shape[0]):
 
     else:
 
-        # Find match to student in basic data spreadsheet
-        #findStudent = basicData.loc[basicData['Forename'] == firstNameCheck]
-        #findStudent = findStudent.loc[findStudent['DOB'] == DOBCheck]
-
-        #if findStudent.shape[0] > 1:
-        #    findStudent = findStudent.loc[findStudent['Surname'] == lastNameCheck]
-
         for j in range(0,basicData.shape[0]):
             if (basicData.iloc[j]['Forename'] == firstNameCheck and basicData.iloc[j]['DOB'] == DOBCheck and basicData.iloc[j]['Surname'] == lastNameCheck):
                 for k in range(0,len(subjectList)):

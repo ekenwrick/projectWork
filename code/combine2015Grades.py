@@ -4,7 +4,7 @@ import numpy as np
 
 # Import data
 basicData = pd.read_excel("basicDataWithGradesAndBehaviour.xlsx")
-gradeData = pd.read_excel("data/2014_A2_results_pupil.xlsx")
+gradeData = pd.read_excel("data/2015_A_Student_results.xlsx")
 
 dataFrameHeaders = list(gradeData)
 
@@ -15,10 +15,10 @@ for i in range(gradeData.shape[0]):
     gradeList = []
 
     # Set up checks
-    firstNameCheck = gradeData.iloc[i]['Forename']
-    lastNameCheck = gradeData.iloc[i]['Surname']
+    firstNameCheck = str(gradeData.iloc[i][0]).split(' ')[1]
+    lastNameCheck = str(gradeData.iloc[i][0]).split(' ')[0]
 
-    for j in range(9, gradeData.shape[1]):
+    for j in range(1, gradeData.shape[1]):
 
         entry = gradeData.iloc[i][j]
 

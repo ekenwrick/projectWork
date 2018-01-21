@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Import data
-data = pd.read_excel("basicDataWithGrades-A.xlsx")
+data = pd.read_excel("basicDataWithGradesAndBehaviour-A.xlsx")
 
 # Collect exam and results columns
 examsTaken = data.loc[:, ['A2 Exam 1', 'A2 Exam 2', 'A2 Exam 3', 'A2 Exam 4', 'A2 Exam 5']]
@@ -20,6 +20,8 @@ totalResults = results.stack().value_counts()
 # Set up and create a dataframe with the grades and exams
 columns = uniqueResults
 index = uniqueExams
+
+print(index)
 
 examsDataFrame = pd.DataFrame(index=index, columns=columns)
 examsDataFrame = examsDataFrame.fillna(0)

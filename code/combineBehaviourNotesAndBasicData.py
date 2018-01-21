@@ -5,7 +5,7 @@ import math
 
 # Import data
 behaviourData = pd.read_excel("behaviourNotesCounted.xlsx")
-data = pd.read_excel("basicDataWithGrades.xlsx")
+data = pd.read_excel("basicDataWithGradesAndBehaviour.xlsx")
 
 for i in range(behaviourData.shape[0]):
     if pd.isnull(behaviourData.iloc[i]['Forename']):
