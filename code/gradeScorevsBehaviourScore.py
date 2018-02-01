@@ -39,10 +39,15 @@ for i in range(data.shape[0]):
 
     gradeIdx = data.index[data['Grade Score'] == data.iloc[i]['Grade Score'] ].tolist()
 
-    num = 1;
+    num = 1
+    check = 0
     for j in range(len(gradeIdx)):
         if data.iloc[gradeIdx[j]]['Behaviour Score'] == data.iloc[i]['Behaviour Score']:
-            num += 1
+            if check == 0:
+                check = 1
+            else:
+                num += 1
+
 
     data.set_value(i, 'Repeat', num)
 

@@ -28,28 +28,28 @@ data = data.drop(data.index[rowsToDelete])
 data = data.reset_index()
 
 
-
-
-
-
-
 # Store grade scores in 1d array
 gradeScore = []
 
-for i in range(data.shape[0]):
-    gradeScore.append(data.iloc[i]['Grade Score'])
-
-
+gradeScore = np.ravel(data.loc[:, ['Grade Score']])
 
 iris  = datasets.load_iris()
 
-print(np.ravel(data.loc[:, ['Behaviour Score', 'Behaviour Count']]))
+
+
+print(iris.data.shape)
+print(iris.target.shape)
+print(data.loc[:, ['Behaviour Score', 'Behaviour Count']].values.shape)
+print(gradeScore.shape)
+
+# print(np.ravel(data.loc[:, ['Behaviour Score', 'Behaviour Count']]))
+# print(data.loc[:, ['Behaviour Score', 'Behaviour Count']])
 
 
 
 
 gnb = GaussianNB()
 
-y_pred = gnb.fit(data.loc[:, ['Behaviour Score', 'Behaviour Count']], gradeScore ).predict(data.loc[:, ['Behaviour Score', 'Behaviour Count']])
+y_pred = gnb.fit(data.loc[:, ['Behaviour Score', 'Behaviour Count']].values, gradeScore.astype(int) ).predict(data.loc[:, ['Behaviour Score', 'Behaviour Count']].values)
 
 print("Number of mislabeled points out of a total %d points : %d" % (data.shape[0],(gradeScore != y_pred).sum()))

@@ -20,8 +20,11 @@ for j in range(len(prelimFileList)):
     individualFile = prelimFileList[j].split('/')[-1]
     fileList.append(individualFile)
 
+print(len(fileList))
+
 # Put data from all files into overall data set
 for i in range(len(fileList)):
+    print(i)
     individualFile = fileList[i]
     if individualFile == 'MATRIX OF DATA FOR CPR.xlsx':
         pass
@@ -62,6 +65,16 @@ for i in range(len(fileList)):
                             start = 4
                             for k in range(start, len(scoreHeadings)):
                                 data.set_value(forenameIdx[z],scoreHeadings[k], str(behaviouralScores.iloc[j][scoreHeadings[k]]))
+
+                        elif individualFile == 'YEAR 7 2015-16 CPR  III.xlsx' or individualFile == 'YEAR 7 2015-16 CPR II.xlsx' or individualFile == 'YEAR 7 2016-17 CPR I AND III.xlsx' or individualFile == 'Year 9 2015-16 CPR I.xlsx' or individualFile == 'YEAR 9 2016-17 CPR I.xlsx' or individualFile == 'YEAR 10 2015-16 CPR I.xlsx' or individualFile == 'YEAR 10 2015-16 CPR III.xlsx' or individualFile == 'YEAR 10 2016-17 CPR I.xlsx' or individualFile == 'YEAR 10 2016-17 CPR III.xlsx' or individualFile == 'YEAR 11 2015-16 CPR I.xlsx':
+                            start = 2
+                            for k in range(start, len(scoreHeadings)):
+                                data.set_value(forenameIdx[z],scoreHeadings[k], str(5 - behaviouralScores.iloc[j][scoreHeadings[k]]))
+
+                        elif individualFile == 'YEAR 8 2015-16 CPR II.xlsx' or individualFile == 'YEAR 8 2015-16 CPR III.xlsx' or individualFile == 'YEAR 8 2016-17 CPR I.xlsx' or individualFile == 'YEAR 8 2016-17 CPR II.xlsx' or individualFile == 'YEAR 8 2016-17 CPR III.xlsx' or individualFile == 'Year 9 2015-16 CPR III.xlsx' or individualFile == 'Year 9 2016-17 CPR III.xlsx':
+                            start = 1
+                            for k in range(start, len(scoreHeadings)):
+                                data.set_value(forenameIdx[z],scoreHeadings[k], str(5 - behaviouralScores.iloc[j][scoreHeadings[k]]))
 
 
 

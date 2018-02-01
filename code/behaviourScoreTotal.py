@@ -10,7 +10,7 @@ for i in range(0,data.shape[0]):
     print(i)
     behaviourScore = 0
     num = 0
-    for j in range(15, 374):  #HARDCODED!!!! CHAGE AS AND WHEN NEEDED
+    for j in range(15, 1236):  #HARDCODED!!!! CHAGE AS AND WHEN NEEDED
 
         if isinstance(data.iloc[i][j], float):
             if math.isnan(data.iloc[i][j]):
