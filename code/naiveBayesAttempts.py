@@ -33,14 +33,6 @@ gradeScore = []
 
 gradeScore = np.ravel(data.loc[:, ['Grade Score']])
 
-iris  = datasets.load_iris()
-
-
-
-print(iris.data.shape)
-print(iris.target.shape)
-print(data.loc[:, ['Behaviour Score', 'Behaviour Count']].values.shape)
-print(gradeScore.shape)
 
 # print(np.ravel(data.loc[:, ['Behaviour Score', 'Behaviour Count']]))
 # print(data.loc[:, ['Behaviour Score', 'Behaviour Count']])
