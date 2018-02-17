@@ -37,7 +37,8 @@ xticks = indexValues
 x_pos = np.arange(len(xticks)) + 1
 y = ethnicityDF['Average Grade Score'].tolist()
 
-plt.scatter(y, x_pos)
+# plt.scatter(y, x_pos)
+plt.barh(x_pos, y, align='center', alpha=0.5)
 plt.ylabel('Ethnicity')
 plt.xlabel('Average Grade Score')
 plt.title('Average Students UCAS Point Score Organised By Ethnicity')

@@ -10,6 +10,197 @@ from matplotlib.colors import ListedColormap
 import scipy, scipy.stats
 
 
+# Import data
+yearSevenData = pd.read_excel("yearSevenScores.xlsx")
+yearEightData = pd.read_excel("yearEightScores.xlsx")
+yearNineData = pd.read_excel("yearNineScores.xlsx")
+yearTenData = pd.read_excel("yearTenScores.xlsx")
+yearElevenData = pd.read_excel("yearElevenScores.xlsx")
+yearThirteenData = pd.read_excel("yearThirteenScores.xlsx")
+totalData = pd.read_excel("basicDataWithGradesAndBehaviour-A.xlsx")
+
+# Reduce to desired data only
+yearSevenData = yearSevenData.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
+yearEightData = yearEightData.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
+yearNineData = yearNineData.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
+yearTenData = yearTenData.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
+yearElevenData = yearElevenData.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
+yearThirteenData = yearThirteenData.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
+totalData = totalData.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
+
+
+## REPEAT FOLLOWING FOR EACH DATASET
+
+
+# Remove zero scores for behaviour score - YEAR SEVEN
+rowsToDelete = []
+
+for i in range(yearSevenData.shape[0]):
+    if yearSevenData.iloc[i]['Behaviour Score'] == 0:
+        rowsToDelete.append(i)
+    # if yearSevenData.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+    #     rowsToDelete.append(i)
+
+# Remove behavioural scores of 0
+rowsToDelete.sort()
+yearSevenData = yearSevenData.drop(yearSevenData.index[rowsToDelete])
+# data = data.reset_index()
+
+
+
+
+
+
+# Remove zero scores for behaviour score - YEAR EIGHT
+rowsToDelete = []
+
+for i in range(yearEightData.shape[0]):
+    if yearEightData.iloc[i]['Behaviour Score'] == 0:
+        rowsToDelete.append(i)
+    # if yearEightData.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+    #     rowsToDelete.append(i)
+
+# Remove behavioural scores of 0
+rowsToDelete.sort()
+yearEightData = yearEightData.drop(yearEightData.index[rowsToDelete])
+# data = data.reset_index()
+
+
+
+
+
+
+# Remove zero scores for behaviour score - YEAR NINE
+rowsToDelete = []
+
+for i in range(yearNineData.shape[0]):
+    if yearNineData.iloc[i]['Behaviour Score'] == 0:
+        rowsToDelete.append(i)
+    # if yearNineData.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+    #     rowsToDelete.append(i)
+
+# Remove behavioural scores of 0
+rowsToDelete.sort()
+yearNineData = yearNineData.drop(yearNineData.index[rowsToDelete])
+# data = data.reset_index()
+
+
+
+
+
+# Remove zero scores for behaviour score - YEAR TEN
+rowsToDelete = []
+
+for i in range(yearTenData.shape[0]):
+    if yearTenData.iloc[i]['Behaviour Score'] == 0:
+        rowsToDelete.append(i)
+    # if yearTenData.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+    #     rowsToDelete.append(i)
+
+# Remove behavioural scores of 0
+rowsToDelete.sort()
+yearTenData = yearTenData.drop(yearTenData.index[rowsToDelete])
+# data = data.reset_index()
+
+
+
+
+
+# Remove zero scores for behaviour score - YEAR ELEVEN
+rowsToDelete = []
+
+for i in range(yearElevenData.shape[0]):
+    if yearElevenData.iloc[i]['Behaviour Score'] == 0:
+        rowsToDelete.append(i)
+    # if yearElevenData.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+    #     rowsToDelete.append(i)
+
+# Remove behavioural scores of 0
+rowsToDelete.sort()
+yearElevenData = yearElevenData.drop(yearElevenData.index[rowsToDelete])
+# data = data.reset_index()
+
+
+
+
+
+# Remove zero scores for behaviour score - YEAR THIRTEEN
+rowsToDelete = []
+
+for i in range(yearThirteenData.shape[0]):
+    if yearThirteenData.iloc[i]['Behaviour Score'] == 0:
+        rowsToDelete.append(i)
+    # if yearThirteenData.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+    #     rowsToDelete.append(i)
+
+# Remove behavioural scores of 0
+rowsToDelete.sort()
+yearThirteenData = yearThirteenData.drop(yearThirteenData.index[rowsToDelete])
+# data = data.reset_index()
+
+
+
+
+
+
+# Remove zero scores for behaviour score - TOTAL DATA
+rowsToDelete = []
+
+for i in range(totalData.shape[0]):
+    if totalData.iloc[i]['Behaviour Score'] == 0:
+        rowsToDelete.append(i)
+    # if totalData.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+    #     rowsToDelete.append(i)
+
+# Remove behavioural scores of 0
+rowsToDelete.sort()
+totalData = totalData.drop(totalData.index[rowsToDelete])
+# data = data.reset_index()
+
+
+
+
+# Collect index for each dataframe to find common entries across dataframes
+yearSevenEntries = yearSevenData.index
+yearEightEntries = yearEightData.index
+yearNineEntries = yearNineData.index
+yearTenEntries = yearTenData.index
+yearElevenEntries = yearElevenData.index
+yearThirteenEntries = yearThirteenData.index
+totalEntries = totalData.index
+
+# Find biggest intersections
+# count = 1
+# for data1 in [yearSevenEntries, yearEightEntries, yearNineEntries, yearTenEntries, yearElevenEntries, yearThirteenEntries, totalEntries]:
+#     for data2 in [yearTenEntries]:
+#         print(count)
+#         count += 1
+        # print(list(set(data1).intersection(data2)))
+
+# Collect list of common entries across a multiple years
+intersectionList = sorted(list(set(yearTenEntries).intersection(yearNineEntries)))
+
+# Reduce datasets to only the relevant data
+data1 = yearTenData
+data1 = data1.loc[intersectionList]
+data2 = yearNineData
+data2 = data2.loc[intersectionList]
+data2 = data2.rename(columns = {'Behaviour Score':'Behaviour Score 2'})
+data2 = data2.rename(columns = {'Behaviour Count':'Behaviour Count 2'})
+data2 = data2.rename(columns = {'Grade Score':'Grade Score 2'})
+
+
+# Concatenate the two dataframes into one
+data = pd.concat([data1, data2], axis=1)
+
+rowsToDelete = []
+for i in range(data.shape[0]):
+    if data.iloc[i]['Grade Score'] >= 40 and random.random() > 0.15:
+        rowsToDelete.append(i)
+
+rowsToDelete.sort()
+data = data.drop(data.index[rowsToDelete])
+
 for numTries in range(5,20):
 
     numSplits = 5
@@ -22,33 +213,6 @@ for numTries in range(5,20):
     totalAccuracyUniformB = 0
 
     for counter in range(numSplits):
-
-
-        # Import data
-        # data = pd.read_excel("yearSevenScores.xlsx")
-        # data = pd.read_excel("yearEightScores.xlsx")
-        # data = pd.read_excel("yearNineScores.xlsx")
-        data = pd.read_excel("yearTenScores.xlsx")
-        # data = pd.read_excel("yearElevenScores.xlsx")
-        # data = pd.read_excel("yearThirteenScores.xlsx")
-        # data = pd.read_excel("basicDataWithGradesAndBehaviour-A.xlsx")
-
-        # Reduce to desired data only
-        data = data.loc[:, ['Behaviour Score', 'Behaviour Count', 'Grade Score']]
-
-        # Remove zero scores for behaviour score
-        rowsToDelete = []
-
-        for i in range(data.shape[0]):
-            if data.iloc[i]['Behaviour Score'] == 0:
-                rowsToDelete.append(i)
-            if data.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
-                rowsToDelete.append(i)
-
-        # Remove behavioural scores of 0
-        rowsToDelete.sort()
-        data = data.drop(data.index[rowsToDelete])
-        data = data.reset_index()
 
 
         # Set up data frame to include grade data in groups
@@ -65,6 +229,8 @@ for numTries in range(5,20):
                 refinedData.set_value(i, 'Grade Bracket', 2)
                 refinedData.set_value(i, 'Behaviour Score', data.iloc[i]['Behaviour Score'])
                 refinedData.set_value(i, 'Behaviour Count', data.iloc[i]['Behaviour Count'])
+                refinedData.set_value(i, 'Behaviour Score 2', data.iloc[i]['Behaviour Score 2'])
+                refinedData.set_value(i, 'Behaviour Count 2', data.iloc[i]['Behaviour Count 2'])
             # elif data.iloc[i]['Grade Score'] >= 36:
             #     refinedData.set_value(i, 'Grade Bracket', 3)
             #     refinedData.set_value(i, 'Behaviour Score', data.iloc[i]['Behaviour Score'])
@@ -73,6 +239,8 @@ for numTries in range(5,20):
                 refinedData.set_value(i, 'Grade Bracket', 4)
                 refinedData.set_value(i, 'Behaviour Score', data.iloc[i]['Behaviour Score'])
                 refinedData.set_value(i, 'Behaviour Count', data.iloc[i]['Behaviour Count'])
+                refinedData.set_value(i, 'Behaviour Score 2', data.iloc[i]['Behaviour Score 2'])
+                refinedData.set_value(i, 'Behaviour Count 2', data.iloc[i]['Behaviour Count 2'])
             # elif data.iloc[i]['Grade Score'] >= 28:
             #     refinedData.set_value(i, 'Grade Bracket', 5)
             #     refinedData.set_value(i, 'Behaviour Score', data.iloc[i]['Behaviour Score'])
@@ -81,6 +249,13 @@ for numTries in range(5,20):
                 refinedData.set_value(i, 'Grade Bracket', 6)
                 refinedData.set_value(i, 'Behaviour Score', data.iloc[i]['Behaviour Score'])
                 refinedData.set_value(i, 'Behaviour Count', data.iloc[i]['Behaviour Count'])
+                refinedData.set_value(i, 'Behaviour Score 2', data.iloc[i]['Behaviour Score 2'])
+                refinedData.set_value(i, 'Behaviour Count 2', data.iloc[i]['Behaviour Count 2'])
+
+
+
+
+
 
 
 
@@ -100,19 +275,16 @@ for numTries in range(5,20):
 
             h = 0.02
 
-            X = refinedDataTrain.loc[:, ['Behaviour Score', 'Behaviour Count']]
+            X = refinedDataTrain.loc[:, ['Behaviour Score', 'Behaviour Count', 'Behaviour Score 2', 'Behaviour Count 2']]
             Y = refinedDataTrain.loc[:, 'Grade Bracket']
 
-            # Create color maps
-            cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
-            cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
             for weights in ['uniform', 'distance']:
                 # we create an instance of Neighbours Classifier and fit the data.
                 clf = neighbors.KNeighborsClassifier(n_neighbours, weights=weights)
                 clf.fit(X, Y)
 
-                predictions = clf.predict(refinedDataTest.loc[:, ['Behaviour Score', 'Behaviour Count']])
+                predictions = clf.predict(refinedDataTest.loc[:, ['Behaviour Score', 'Behaviour Count', 'Behaviour Score 2', 'Behaviour Count 2']])
                 baseline = []
                 for x in predictions:
                     baseline.append(2)
