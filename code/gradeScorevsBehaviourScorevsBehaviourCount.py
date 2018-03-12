@@ -18,8 +18,8 @@ rowsToDelete = []
 for i in range(data.shape[0]):
     if data.iloc[i]['Behaviour Score'] == 0:
         rowsToDelete.append(i)
-    if data.iloc[i]['Grade Score'] >= 44 and random.random() > 0.25:
-        rowsToDelete.append(i)
+    # if data.iloc[i]['Grade Score'] >= 44 and random.random() > 0.25:
+    #     rowsToDelete.append(i)
 
 # Remove behavioural scores of 0
 rowsToDelete.sort()

@@ -4,7 +4,8 @@ import numpy as np
 import random
 import statsmodels.formula.api as sm
 import matplotlib.pyplot as plt
-from sklearn import neighbors, datasets
+from sklearn import neighbors, datasets, preprocessing, svm
+from sklearn.linear_model import LogisticRegression
 from matplotlib.colors import ListedColormap
 
 import scipy, scipy.stats
@@ -178,12 +179,12 @@ totalEntries = totalData.index
         # print(list(set(data1).intersection(data2)))
 
 # Collect list of common entries across a multiple years
-intersectionList = sorted(list(set(yearTenEntries).intersection(yearNineEntries)))
+intersectionList = sorted(list(set(totalEntries).intersection(totalEntries)))
 
 # Reduce datasets to only the relevant data
-data1 = yearTenData
+data1 = totalData
 data1 = data1.loc[intersectionList]
-data2 = yearNineData
+data2 = totalData
 data2 = data2.loc[intersectionList]
 data2 = data2.rename(columns = {'Behaviour Score':'Behaviour Score 2'})
 data2 = data2.rename(columns = {'Behaviour Count':'Behaviour Count 2'})
@@ -191,35 +192,54 @@ data2 = data2.rename(columns = {'Grade Score':'Grade Score 2'})
 
 
 # Concatenate the two dataframes into one
-data = pd.concat([data1, data2], axis=1)
+dataToNormalise = pd.concat([data1.loc[:, ['Behaviour Score', 'Behaviour Count']], data2.loc[:, ['Behaviour Score 2', 'Behaviour Count 2']]], axis=1)
+dataSet2 = pd.concat([data1.loc[:, ['Grade Score']], data2.loc[:, ['Grade Score 2']]], axis=1)
 
-rowsToDelete = []
-for i in range(data.shape[0]):
-    if data.iloc[i]['Grade Score'] >= 40 and random.random() > 0.15:
-        rowsToDelete.append(i)
+# Normalising data
+# dataToNormalise = (dataToNormalise-dataToNormalise.mean())/dataToNormalise.std()
+data = pd.concat([dataToNormalise, dataSet2], axis = 1)
 
-rowsToDelete.sort()
-data = data.drop(data.index[rowsToDelete])
 
-for numTries in range(5,20):
+
+# # UNDERSAMPLING!!!!
+# rowsToDelete = []
+# for i in range(data.shape[0]):
+#     if data.iloc[i]['Grade Score'] >= 40 and random.random() > 0.10:
+#         rowsToDelete.append(i)
+#
+# rowsToDelete.sort()
+# data = data.drop(data.index[rowsToDelete])
+
+
+
+
+
+
+
+for classifier in range(0,3):
 
     numSplits = 5
-    # numTries = 10
-    n_neighbours = 1
+    numTries = 10
+    n_neighbours = 3
 
     totalAccuracyDistance = 0
     totalAccuracyUniform = 0
     totalAccuracyDistanceB = 0
     totalAccuracyUniformB = 0
 
+
+
     for counter in range(numSplits):
+
 
 
         # Set up data frame to include grade data in groups
         refinedData = pd.DataFrame(np.nan, index=range(data.shape[0]), columns=['Grade Bracket', 'Behaviour Score', 'Behaviour Count'])
         refinedData = refinedData.fillna(0)
 
-
+        top = 0
+        middle = 0
+        bottom = 0
         for i in range(data.shape[0]):
             # if data.iloc[i]['Grade Score'] >= 44:
             #     refinedData.set_value(i, 'Grade Bracket', 1)
@@ -231,6 +251,7 @@ for numTries in range(5,20):
                 refinedData.set_value(i, 'Behaviour Count', data.iloc[i]['Behaviour Count'])
                 refinedData.set_value(i, 'Behaviour Score 2', data.iloc[i]['Behaviour Score 2'])
                 refinedData.set_value(i, 'Behaviour Count 2', data.iloc[i]['Behaviour Count 2'])
+                top += 1
             # elif data.iloc[i]['Grade Score'] >= 36:
             #     refinedData.set_value(i, 'Grade Bracket', 3)
             #     refinedData.set_value(i, 'Behaviour Score', data.iloc[i]['Behaviour Score'])
@@ -241,6 +262,7 @@ for numTries in range(5,20):
                 refinedData.set_value(i, 'Behaviour Count', data.iloc[i]['Behaviour Count'])
                 refinedData.set_value(i, 'Behaviour Score 2', data.iloc[i]['Behaviour Score 2'])
                 refinedData.set_value(i, 'Behaviour Count 2', data.iloc[i]['Behaviour Count 2'])
+                middle += 1
             # elif data.iloc[i]['Grade Score'] >= 28:
             #     refinedData.set_value(i, 'Grade Bracket', 5)
             #     refinedData.set_value(i, 'Behaviour Score', data.iloc[i]['Behaviour Score'])
@@ -251,8 +273,33 @@ for numTries in range(5,20):
                 refinedData.set_value(i, 'Behaviour Count', data.iloc[i]['Behaviour Count'])
                 refinedData.set_value(i, 'Behaviour Score 2', data.iloc[i]['Behaviour Score 2'])
                 refinedData.set_value(i, 'Behaviour Count 2', data.iloc[i]['Behaviour Count 2'])
+                bottom += 1
+
+        # TO KNOW THE CLASS IMBALANCE
+        # print(top)
+        # print(middle)
+        # print(bottom)
 
 
+
+        # # OVERSAMPLING!!!!
+        #
+        # overSampleRange = refinedData.shape[0]
+        #
+        # for i in range(overSampleRange):
+        #     r = refinedData.ix[[i], :]
+        #     if refinedData.iloc[i]['Grade Bracket'] == 2:
+        #         pass
+        #     elif refinedData.iloc[i]['Grade Bracket'] == 4:
+        #         for j in range(round(top/middle)):
+        #             refinedData = refinedData.append(r)
+        #     else:
+        #         for j in range(round(top/bottom)):
+        #             refinedData = refinedData.append(r)
+        #
+        # refinedData = refinedData.reset_index(drop=True)
+        #
+        #
 
 
 
@@ -280,8 +327,18 @@ for numTries in range(5,20):
 
 
             for weights in ['uniform', 'distance']:
+
                 # we create an instance of Neighbours Classifier and fit the data.
-                clf = neighbors.KNeighborsClassifier(n_neighbours, weights=weights)
+                if classifier == 0:
+                    clf = neighbors.KNeighborsClassifier(n_neighbours, weights=weights)
+                elif classifier == 1:
+                    if weights == 'uniform':
+                        clf = svm.SVC(kernel='linear')
+                    else:
+                        clf = svm.SVC(kernel='rbf')
+                elif classifier == 2:
+                    clf = LogisticRegression()
+
                 clf.fit(X, Y)
 
                 predictions = clf.predict(refinedDataTest.loc[:, ['Behaviour Score', 'Behaviour Count', 'Behaviour Score 2', 'Behaviour Count 2']])

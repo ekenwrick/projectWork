@@ -32,6 +32,7 @@ indexValues = ethnicityDF.index.values
 for i in indexValues:
     ethnicityDF.set_value(i, 'Average Grade Score', ethnicityDF.loc[i]['Total Grade Score'] / ethnicityDF.loc[i]['Count'])
 
+print(ethnicityDF)
 
 xticks = indexValues
 x_pos = np.arange(len(xticks)) + 1
@@ -44,4 +45,5 @@ plt.xlabel('Average Grade Score')
 plt.title('Average Students UCAS Point Score Organised By Ethnicity')
 plt.yticks(x_pos,xticks)
 #plt.xticks(rotation=40)
+plt.xlim([30,48])
 plt.show()
